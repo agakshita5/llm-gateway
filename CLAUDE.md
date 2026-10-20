@@ -46,4 +46,14 @@ Out of scope (do NOT add): semantic cache, batch queues, dashboard UI, Go, OpenT
 ## Progress log
 At the end of every session, update this section: what's done, what's next, open questions.
 
-- (not started) — next: Day 1
+- 2026-10-05 → 10-09: skeleton, provider interface + exceptions (user-written, reviewed), Groq adapter.
+- 2026-10-20: plan switched — Claude writes all remaining code, user approves decisions and reviews.
+  Done: Groq stream, endpoint, Gemini adapter (native API), router (retry/backoff/fallback), API keys,
+  Lua token-bucket rate limiter, exact-match cache, Postgres usage log + GET /usage, Dockerfile + compose,
+  56 tests, Locust load test (fake provider; ~2 ms p50 / 11 ms p99 gateway overhead), README.
+  Verified end-to-end with the real OpenAI SDK against real Groq + Gemini, including real Groq→Gemini fallback.
+  Decisions 001–016 in DECISIONS.md (gitignored by choice).
+- Next: user installs Docker and runs `docker compose up` (not verifiable here — Docker isn't installed);
+  user reviews the code; nothing is committed yet. Then the learning wrap-up: answer quesToAddress,
+  rewrite rate limiter + fallback from memory, solo feature (circuit breaker or monthly budget), mock interview.
+- Open: should CLAUDE.md's "how to work with me" be updated to reflect the switch?
