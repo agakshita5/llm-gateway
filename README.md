@@ -153,25 +153,3 @@ tests/
 Out of scope for this project: semantic caching, request queues, a dashboard, tracing. Natural next steps: a **circuit
 breaker** (stop calling a provider that keeps failing, instead of retrying it on every request) and **per-key monthly
 token budgets**.
-
-As a Full Stack Developer Intern, you will:
-
-Collaborate with the development team to build robust, scalable, and maintainable web applications.
-Develop and maintain front-end interfaces using Next.js (basic proficiency expected).
-Develop and manage back-end services using Django or Node.js.
-Integrate user-facing elements with server-side logic and APIs.
-Ensure the technical feasibility and efficiency of front-end and back-end solutions.
-Optimize applications for performance, speed, and scalability.
-Participate in code reviews and contribute to code quality and best practices.
-Troubleshoot, debug, and resolve application issues as needed.
-Stay updated with the latest trends and best practices in full stack development.
- 
-
-Qualifications:
-
-Frontend: Basic knowledge of Next.js or React.js.
-Backend: Experience with Django or Node.js for building APIs or server-side logic.
-Problem-Solving: Strong analytical and debugging skills.
-Version Control: Familiarity with Git and collaborative workflows.
-Communication: Good verbal and written communication.
-Teamwork: Ability to work effectively in a remote team environment.
