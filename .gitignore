@@ -7,3 +7,5 @@ __pycache__/
 DECISIONS.md
 quesToAddress
 loadtest/results/
+.DS_Store
+CLAUDE.md
