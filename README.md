@@ -148,7 +148,7 @@ loadtest/locustfile.py
 tests/
 ```
 
-## Not done (on purpose)
+## Not done
 
 Out of scope for this project: semantic caching, request queues, a dashboard, tracing. Natural next steps: a **circuit
 breaker** (stop calling a provider that keeps failing, instead of retrying it on every request) and **per-key monthly
