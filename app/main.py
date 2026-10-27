@@ -79,9 +79,6 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="LLM Gateway", lifespan=lifespan)
 
-
-# --- errors ------------------------------------------------------------------
-
 class GatewayError(Exception):
     """Errors the gateway itself raises (bad api key, rate limited), as opposed to provider errors."""
 
@@ -95,7 +92,7 @@ def _openai_error(status: int, message: str, err_type: str, headers: dict | None
 
 
 def provider_error_status(exc: ProviderError) -> tuple[int, str]:
-    """Status code + error type the client sees for a provider error (DECISIONS.md 007)."""
+    """Status code + error type the client sees for a provider error."""
     if isinstance(exc, ProviderRateLimitError):
         return 429, "rate_limit_error"
     if isinstance(exc, ProviderRequestError):
@@ -128,7 +125,7 @@ async def validation_error_handler(request: Request, exc: RequestValidationError
     return _openai_error(400, str(exc.errors()), "invalid_request_error")
 
 
-# --- dependencies ------------------------------------------------------------
+# dependencies 
 
 async def require_api_key(request: Request) -> ApiKey:
     header = request.headers.get("authorization", "")
@@ -158,7 +155,7 @@ async def rate_limit(request: Request, response: Response, key: ApiKey = Depends
     return key
 
 
-# --- routes ------------------------------------------------------------------
+# routes 
 
 @app.get("/health")
 async def health() -> dict[str, str]:
@@ -213,7 +210,7 @@ async def chat_completions(
         return result.response
 
     try:
-        # retries and fallback happen in here, up to the first chunk (DECISIONS.md 006, 010)
+        # retries and fallback happen in here, up to the first chunk
         stream = await router.stream(req)
     except ProviderError as exc:
         await state.usage.record(_record(key, req, started, exc.provider, req.model, provider_error_status(exc)[0], error=str(exc)[:500]))

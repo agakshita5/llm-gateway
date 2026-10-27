@@ -1,4 +1,4 @@
-"""Exact-match response cache in redis (DECISIONS.md 014)."""
+"""Exact-match response cache in redis"""
 
 import hashlib
 import json

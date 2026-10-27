@@ -1,13 +1,9 @@
-"""Estimated cost per model, in usd per 1M tokens (input, output).
-
-these are list prices copied by hand and will drift; check the provider pricing pages before trusting
-the cost numbers. unknown models cost 0 and are flagged in the usage log by cost_usd = 0.
-"""
+"""Cost per model for each provider, in usd per 1M tokens (input, output)"""
 
 PRICES_PER_1M: dict[str, tuple[float, float]] = {
     # groq
-    "openai/gpt-oss-20b": (0.10, 0.50),
-    "openai/gpt-oss-120b": (0.15, 0.75),
+    "openai/gpt-oss-20b": (0.075, 0.30),
+    "openai/gpt-oss-120b": (0.15, 0.6),
     # gemini
     "gemini-2.5-flash": (0.30, 2.50),
     "gemini-2.5-flash-lite": (0.10, 0.40),

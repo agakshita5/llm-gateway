@@ -1,4 +1,4 @@
-"""Per-key token bucket in redis, made atomic with a lua script (DECISIONS.md 013).
+"""Per-key token bucket in redis, made atomic with a lua script.
 
 each key has a bucket of `capacity` tokens that refills at `refill_per_s`. a request takes 1 token;
 an empty bucket means 429. the bucket is stored as just two numbers: tokens left and last update time.

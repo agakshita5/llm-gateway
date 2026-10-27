@@ -75,7 +75,7 @@ class GeminiProvider(Provider):
         try:
             return self._to_openai(response.json(), req.model)
         except (ValueError, KeyError, TypeError) as e:
-            # 200 but not the shape we expect: provider's fault (DECISIONS.md 011)
+            # 200 but not the shape we expect: provider's fault
             raise ProviderUnavailableError(self.name, f"unexpected response body: {e}") from e
 
     async def stream(self, req: ChatCompletionRequest) -> AsyncIterator[ChatCompletionChunk]:
@@ -113,7 +113,7 @@ class GeminiProvider(Provider):
     async def aclose(self) -> None:
         await self._client.aclose()
 
-    # --- request translation -------------------------------------------------
+    # request translation 
 
     def _to_gemini(self, req: ChatCompletionRequest) -> dict[str, Any]:
         system_parts: list[dict] = []
@@ -152,7 +152,7 @@ class GeminiProvider(Provider):
             body["generationConfig"] = config
         return body
 
-    # --- response translation ------------------------------------------------
+    # response translation
 
     def _text_and_finish(self, data: dict) -> tuple[str, str | None]:
         candidates = data.get("candidates") or []
@@ -197,8 +197,7 @@ class GeminiProvider(Provider):
             usage=self._usage(data) if finish else None,
         )
 
-    # --- errors --------------------------------------------------------------
-
+    # errors
     def _raise_for_status(self, response: httpx.Response) -> None:
         """Translate a non-2xx gemini response into our gateway errors."""
         status = response.status_code
@@ -216,7 +215,7 @@ class GeminiProvider(Provider):
             raise ProviderRateLimitError(self.name, message, retry_after=self._retry_after(response, details))
         if status >= 500:
             raise ProviderUnavailableError(self.name, message, status)
-        # a wrong key comes back as 400 with reason API_KEY_INVALID, not 401 (DECISIONS.md 005)
+        # a wrong key comes back as 400 with reason API_KEY_INVALID, not 401
         bad_key = any(d.get("reason") == "API_KEY_INVALID" for d in details)
         if status in (401, 403) or bad_key:
             raise ProviderAuthError(self.name, message, status)

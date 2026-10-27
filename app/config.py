@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     provider_mode: str = "real"
     fake_latency_ms: int = 200
 
-    # retry / fallback (see DECISIONS.md 010)
+    # retry / fallback
     max_attempts_per_provider: int = 2
     backoff_base_s: float = 0.5
     backoff_max_s: float = 4.0
@@ -29,11 +29,11 @@ class Settings(BaseSettings):
     redis_url: str = "redis://localhost:6379/0"
     database_url: str = "postgresql://localhost:5432/llm_gateway"
 
-    # rate limit: token bucket per api key (see DECISIONS.md 013)
+    # rate limit: token bucket per api key 
     rate_limit_capacity: int = 20
     rate_limit_refill_per_s: float = 1.0
 
-    # cache (see DECISIONS.md 014)
+    # cache 
     cache_ttl_s: int = 3600
 
 

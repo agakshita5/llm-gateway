@@ -1,4 +1,4 @@
-"""Gateway API keys, stored hashed in redis (DECISIONS.md 012).
+"""Gateway API keys, stored hashed in redis.
 
 create a key:  python -m app.keys create --name alice
 list keys:     python -m app.keys list
@@ -27,7 +27,7 @@ class ApiKey:
 
 
 def hash_key(raw: str) -> str:
-    # sha256 is fine here (unlike passwords): keys are long random strings, so brute force is hopeless
+    # sha256 is fine here (unlike passwords): keys are long random strings
     return hashlib.sha256(raw.encode()).hexdigest()
 
 

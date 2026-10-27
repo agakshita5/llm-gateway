@@ -1,6 +1,6 @@
 """Picks a provider for each request, retries with backoff, and falls back to the other provider.
 
-Policy (DECISIONS.md 010):
+Policy:
   ProviderRequestError      -> give up now (the client's input is bad; every provider would reject it)
   ProviderAuthError         -> skip to the next provider (our key for this one is bad)
   ProviderRateLimitError    -> retry once if Retry-After is short, else next provider
@@ -37,7 +37,7 @@ class CompletionResult:
 class StreamResult:
     provider: str
     model: str
-    # already pulled from the provider so failures before it could still fall back (DECISIONS.md 006)
+    # already pulled from the provider so failures before it could still fall back
     first: ChatCompletionChunk | None
     chunks: AsyncIterator[ChatCompletionChunk]
 

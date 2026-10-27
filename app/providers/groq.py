@@ -33,14 +33,14 @@ class GroqProvider(Provider):
             response = await self._client.post("/chat/completions", json=req.model_dump(exclude_none=True))
         except httpx.TimeoutException as e:
             raise ProviderUnavailableError(self.name, "timeout") from e
-        except httpx.TransportError as e:          # DNS, connection refused, connection reset...
+        except httpx.TransportError as e:          # DNS, connection refused, connection reset
             raise ProviderUnavailableError(self.name, f"network error: {e}") from e
 
         self._raise_for_status(response)
         try:
             return ChatCompletionResponse.model_validate_json(response.content)
         except ValidationError as e:
-            # 200 but not the shape we expect: provider's fault, so treat like a 5xx (DECISIONS.md 011)
+            # 200 but not the shape we expect: provider's fault, so treat like a 5xx
             raise ProviderUnavailableError(self.name, f"unexpected response body: {e}") from e
 
     async def stream(self, req: ChatCompletionRequest) -> AsyncIterator[ChatCompletionChunk]:
@@ -52,13 +52,12 @@ class GroqProvider(Provider):
             # instead of waiting for the whole response like post() does
             async with self._client.stream("POST", "/chat/completions", json=body) as response:
                 if response.status_code >= 400:
-                    # error bodies are small; read it fully so the error message has the text
-                    await response.aread()
+                    await response.aread() # read the response
                     self._raise_for_status(response)
 
                 # sse format: each event is a "data: <json>" line, events separated by blank lines
                 async for line in response.aiter_lines():
-                    # skip blank separators and ":" comment lines (used as keep-alives)
+                    # skip blank separators and ":" comment lines 
                     if not line or line.startswith(":"):
                         continue
                     if not line.startswith("data:"):

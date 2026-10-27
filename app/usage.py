@@ -1,4 +1,4 @@
-"""Usage log in postgres: one row per completed request (DECISIONS.md 015)."""
+"""Usage log in postgres: one row per completed request."""
 
 import logging
 from decimal import Decimal

@@ -5,9 +5,9 @@ other OpenAI params (top_p, stop, seed, ...) without a 422.
 """
 
 from typing import Literal
-
 from pydantic import BaseModel, ConfigDict
 
+# normal requests: /v1/chat/completions
 
 class ChatMessage(BaseModel):
     model_config = ConfigDict(extra="allow")
@@ -47,7 +47,7 @@ class ChatCompletionResponse(BaseModel):
     usage: Usage | None = None
 
 
-# --- streaming ---------------------------------------------------------------
+# streaming
 
 class Delta(BaseModel):
     role: str | None = None
